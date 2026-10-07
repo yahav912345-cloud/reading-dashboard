@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useBooks } from '../../context/BookContext';
 import {
   ResponsiveContainer,
@@ -51,6 +51,14 @@ import {
 
 export default function ArchiveAnalyticsAtlas() {
   const { archiveBooks, setSelectedArchiveBook } = useBooks();
+
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 640);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // 1. Cumulative Page Acceleration (S-Curve over the years)
   const cumulativeVelocityData = useMemo(() => {
@@ -318,7 +326,7 @@ export default function ArchiveAnalyticsAtlas() {
               <Sparkles className="w-3.5 h-3.5" />
               <span>ARCHIVE LITERARY DOSSIER • אטלס ניתוחים מתקדם</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-serif font-black tracking-tight text-stone-100">
+            <h2 className="text-2xl sm:text-4xl font-serif font-black tracking-tight text-stone-100">
               אטלס ניתוח קריאה ואינפוגרפיקה
             </h2>
             <p className="text-xs sm:text-sm text-stone-400 mt-1 max-w-2xl font-light">
@@ -328,58 +336,58 @@ export default function ArchiveAnalyticsAtlas() {
         </div>
 
         {/* Executive Infographic Ribbon - Bespoke Dials & Metric Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           
-          <div className="p-5 rounded-2xl bg-[#121622] border border-stone-800/80 shadow-md flex flex-col justify-between relative overflow-hidden">
+          <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-[#121622] border border-stone-800/80 shadow-md flex flex-col justify-between relative overflow-hidden">
             <div className="flex items-center justify-between text-stone-400">
-              <span className="text-xs font-mono uppercase tracking-wider">סך כרכים מתועדים</span>
-              <BookmarkCheck className="w-4 h-4 text-amber-500" />
+              <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider">סך כרכים מתועדים</span>
+              <BookmarkCheck className="w-4 h-4 text-amber-500 shrink-0" />
             </div>
-            <div className="mt-4">
-              <div className="text-3xl sm:text-4xl font-serif font-black text-stone-100">{archiveBooks.length}</div>
-              <div className="text-[11px] text-amber-400 font-mono mt-1 flex items-center gap-1">
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-4xl font-serif font-black text-stone-100">{archiveBooks.length}</div>
+              <div className="text-[10px] sm:text-[11px] text-amber-400 font-mono mt-1 flex items-center gap-1">
                 <span>{seriesVolumesCount} כרכים מסדרות מפורקות</span>
               </div>
             </div>
             <div className="absolute -left-3 -bottom-3 w-16 h-16 bg-amber-500/5 rounded-full pointer-events-none" />
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#121622] border border-stone-800/80 shadow-md flex flex-col justify-between relative overflow-hidden">
+          <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-[#121622] border border-stone-800/80 shadow-md flex flex-col justify-between relative overflow-hidden">
             <div className="flex items-center justify-between text-stone-400">
-              <span className="text-xs font-mono uppercase tracking-wider">נפח עמודים שנצרך</span>
-              <FileText className="w-4 h-4 text-teal-400" />
+              <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider">נפח עמודים שנצרך</span>
+              <FileText className="w-4 h-4 text-teal-400 shrink-0" />
             </div>
-            <div className="mt-4">
-              <div className="text-3xl sm:text-4xl font-serif font-black text-stone-100">{totalPages.toLocaleString()}</div>
-              <div className="text-[11px] text-teal-400 font-mono mt-1">
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-4xl font-serif font-black text-stone-100">{totalPages.toLocaleString()}</div>
+              <div className="text-[10px] sm:text-[11px] text-teal-400 font-mono mt-1">
                 ממוצע של {avgPages} עמ' לכרך
               </div>
             </div>
             <div className="absolute -left-3 -bottom-3 w-16 h-16 bg-teal-500/5 rounded-full pointer-events-none" />
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#121622] border border-stone-800/80 shadow-md flex flex-col justify-between relative overflow-hidden">
+          <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-[#121622] border border-stone-800/80 shadow-md flex flex-col justify-between relative overflow-hidden">
             <div className="flex items-center justify-between text-stone-400">
-              <span className="text-xs font-mono uppercase tracking-wider">עומק היסטורי (שנים)</span>
-              <Clock className="w-4 h-4 text-indigo-400" />
+              <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider">עומק היסטורי (שנים)</span>
+              <Clock className="w-4 h-4 text-indigo-400 shrink-0" />
             </div>
-            <div className="mt-4">
-              <div className="text-3xl sm:text-4xl font-serif font-black text-stone-100">2,500+</div>
-              <div className="text-[11px] text-indigo-400 font-mono mt-1">
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-4xl font-serif font-black text-stone-100">2,500+</div>
+              <div className="text-[10px] sm:text-[11px] text-indigo-400 font-mono mt-1">
                 מהעת העתיקה (500 לפנה"ס) ועד ימינו
               </div>
             </div>
             <div className="absolute -left-3 -bottom-3 w-16 h-16 bg-indigo-500/5 rounded-full pointer-events-none" />
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#121622] border border-stone-800/80 shadow-md flex flex-col justify-between relative overflow-hidden">
+          <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-[#121622] border border-stone-800/80 shadow-md flex flex-col justify-between relative overflow-hidden">
             <div className="flex items-center justify-between text-stone-400">
-              <span className="text-xs font-mono uppercase tracking-wider">סוגה דומיננטית</span>
-              <Activity className="w-4 h-4 text-rose-400" />
+              <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider">סוגה דומיננטית</span>
+              <Activity className="w-4 h-4 text-rose-400 shrink-0" />
             </div>
-            <div className="mt-4">
-              <div className="text-3xl sm:text-4xl font-serif font-black text-stone-100">62% פרוזה</div>
-              <div className="text-[11px] text-stone-400 font-mono mt-1">
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-4xl font-serif font-black text-stone-100">62% פרוזה</div>
+              <div className="text-[10px] sm:text-[11px] text-stone-400 font-mono mt-1">
                 38% ספרי עיון ומדע
               </div>
             </div>
@@ -391,15 +399,15 @@ export default function ArchiveAnalyticsAtlas() {
       </div>
 
       {/* Row 1: Grand Composed Acceleration Chart & Intellectual Radar */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
         
         {/* Chart 1: Cumulative Reading Velocity (2 Columns) */}
-        <div className="lg:col-span-2 p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
+        <div className="lg:col-span-2 p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-amber-500" />
+                <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-amber-500 shrink-0" />
                   <span>עקומת תאוצת קריאה מצטברת (Cumulative Page Acceleration)</span>
                 </h3>
                 <p className="text-xs text-stone-400 mt-0.5">
@@ -408,18 +416,21 @@ export default function ArchiveAnalyticsAtlas() {
               </div>
             </div>
 
-            <div className="h-80 w-full">
+            <div className="h-72 sm:h-80 w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <ComposedChart data={cumulativeVelocityData} margin={{ top: 20, right: 30, left: 20, bottom: 25 }}>
+                <ComposedChart
+                  data={cumulativeVelocityData}
+                  margin={isMobile ? { top: 15, right: 10, left: -10, bottom: 20 } : { top: 20, right: 30, left: 20, bottom: 25 }}
+                >
                   <defs>
                     <linearGradient id="cumPageGrad" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#0f766e" stopOpacity={0.6} />
                       <stop offset="95%" stopColor="#0f766e" stopOpacity={0.0} />
                     </linearGradient>
                   </defs>
-                  <XAxis dataKey="year" stroke="#78716c" tick={{ fontSize: 13, fill: '#a8a29e' }} dy={8} />
-                  <YAxis yAxisId="cum" stroke="#0f766e" tick={{ fontSize: 12, fill: '#78716c' }} orientation="right" />
-                  <YAxis yAxisId="year" stroke="#f59e0b" tick={{ fontSize: 12, fill: '#78716c' }} orientation="left" />
+                  <XAxis dataKey="year" stroke="#78716c" tick={{ fontSize: isMobile ? 11 : 13, fill: '#a8a29e' }} dy={8} />
+                  <YAxis yAxisId="cum" stroke="#0f766e" tick={{ fontSize: isMobile ? 10 : 12, fill: '#78716c' }} orientation="right" />
+                  <YAxis yAxisId="year" stroke="#f59e0b" tick={{ fontSize: isMobile ? 10 : 12, fill: '#78716c' }} orientation="left" />
                   <Tooltip
                     contentStyle={{
                       backgroundColor: '#0c0f17',
@@ -434,7 +445,7 @@ export default function ArchiveAnalyticsAtlas() {
                     ]}
                   />
                   <Legend
-                    wrapperStyle={{ paddingTop: '20px' }}
+                    wrapperStyle={{ paddingTop: '20px', fontSize: isMobile ? '11px' : '12px' }}
                     formatter={val => (val === 'cumulativePages' ? 'עמודים מצטברים (S-Curve)' : 'עמודים באותה שנה')}
                   />
                   <Area
@@ -451,7 +462,7 @@ export default function ArchiveAnalyticsAtlas() {
                     dataKey="yearlyPages"
                     fill="#f59e0b"
                     radius={[6, 6, 0, 0]}
-                    barSize={36}
+                    barSize={isMobile ? 22 : 36}
                     name="yearlyPages"
                   />
                 </ComposedChart>
@@ -461,21 +472,21 @@ export default function ArchiveAnalyticsAtlas() {
         </div>
 
         {/* Chart 2: Intellectual Thematic Radar (1 Column) */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-              <Compass className="w-5 h-5 text-amber-500" />
+            <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+              <Compass className="w-5 h-5 text-amber-500 shrink-0" />
               <span>רדאר תמות אינטלקטואלי (Thematic Radar)</span>
             </h3>
             <p className="text-xs text-stone-400 mt-0.5 mb-2">
               6 צירי התוכן המרכזיים המגדירים את מסלול הקריאה
             </p>
 
-            <div className="h-72 w-full flex items-center justify-center">
+            <div className="h-64 sm:h-72 w-full flex items-center justify-center">
               <ResponsiveContainer width="100%" height="100%">
-                <RadarChart data={thematicRadarData} outerRadius={90}>
+                <RadarChart data={thematicRadarData} outerRadius={isMobile ? 65 : 90}>
                   <PolarGrid stroke="#2e3549" />
-                  <PolarAngleAxis dataKey="subject" stroke="#a8a29e" tick={{ fontSize: 11, fill: '#d6d3d1' }} />
+                  <PolarAngleAxis dataKey="subject" stroke="#a8a29e" tick={{ fontSize: isMobile ? 9 : 11, fill: '#d6d3d1' }} />
                   <PolarRadiusAxis stroke="#44403c" angle={30} domain={[0, 30]} />
                   <Radar
                     name="עוצמת תמה"
@@ -507,11 +518,11 @@ export default function ArchiveAnalyticsAtlas() {
       </div>
 
       {/* Row 2: NEW Historical Chronology vs. Tome Thickness Scatter Plot */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl">
+      <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-              <Clock className="w-5 h-5 text-amber-500" />
+            <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+              <Clock className="w-5 h-5 text-amber-500 shrink-0" />
               <span>מפת ציר זמן כתיבה מול עובי הכרך (Historical Epoch vs. Volume Thickness)</span>
             </h3>
             <p className="text-xs text-stone-400 mt-0.5">
@@ -523,23 +534,23 @@ export default function ArchiveAnalyticsAtlas() {
           </div>
         </div>
 
-        <div className="h-80 w-full">
+        <div className="h-72 sm:h-80 w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 30, left: 10, bottom: 25 }}>
+            <ScatterChart margin={isMobile ? { top: 15, right: 15, left: -15, bottom: 20 } : { top: 20, right: 30, left: 10, bottom: 25 }}>
               <XAxis
                 type="number"
                 dataKey="x"
                 name="שנת פרסום מקורית"
                 domain={[1800, 2025]}
                 stroke="#78716c"
-                tick={{ fontSize: 12, fill: '#a8a29e' }}
+                tick={{ fontSize: isMobile ? 10 : 12, fill: '#a8a29e' }}
               />
               <YAxis
                 type="number"
                 dataKey="y"
                 name="עמודים"
                 stroke="#78716c"
-                tick={{ fontSize: 12, fill: '#a8a29e' }}
+                tick={{ fontSize: isMobile ? 10 : 12, fill: '#a8a29e' }}
                 unit=" עמ'"
               />
               <ZAxis type="number" dataKey="z" range={[60, 360]} name="עובי" />
@@ -593,14 +604,14 @@ export default function ArchiveAnalyticsAtlas() {
       </div>
 
       {/* Row 3: Book Density & Publishing House Specialization */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         
         {/* Chart 4: Book Density & Depth Spectrum */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl">
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
             <div>
-              <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-                <FileText className="w-5 h-5 text-amber-500" />
+              <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+                <FileText className="w-5 h-5 text-amber-500 shrink-0" />
                 <span>ספקטרום משקל ועומק ספרים (Book Density)</span>
               </h3>
               <p className="text-xs text-stone-400 mt-0.5">
@@ -609,11 +620,14 @@ export default function ArchiveAnalyticsAtlas() {
             </div>
           </div>
 
-          <div className="h-72 w-full">
+          <div className="h-64 sm:h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={densityByYearData} margin={{ top: 20, right: 30, left: 20, bottom: 25 }}>
-                <XAxis dataKey="year" stroke="#78716c" tick={{ fontSize: 13, fill: '#a8a29e' }} dy={8} />
-                <YAxis stroke="#78716c" tick={{ fontSize: 12, fill: '#a8a29e' }} />
+              <BarChart
+                data={densityByYearData}
+                margin={isMobile ? { top: 15, right: 10, left: -10, bottom: 20 } : { top: 20, right: 30, left: 20, bottom: 25 }}
+              >
+                <XAxis dataKey="year" stroke="#78716c" tick={{ fontSize: isMobile ? 11 : 13, fill: '#a8a29e' }} dy={8} />
+                <YAxis stroke="#78716c" tick={{ fontSize: isMobile ? 10 : 12, fill: '#a8a29e' }} />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: '#0c0f17',
@@ -634,7 +648,7 @@ export default function ArchiveAnalyticsAtlas() {
                   ]}
                 />
                 <Legend
-                  wrapperStyle={{ paddingTop: '20px' }}
+                  wrapperStyle={{ paddingTop: '20px', fontSize: isMobile ? '10px' : '12px' }}
                   formatter={val =>
                     val === 'novella'
                       ? 'נובלות ומסות קצרות (<200 עמ\')'
@@ -654,33 +668,32 @@ export default function ArchiveAnalyticsAtlas() {
           </div>
         </div>
 
-        {/* Chart 5: Publishing House Specialization Matrix (Wide YAxis ensures zero text overlap) */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
+        {/* Chart 5: Publishing House Specialization Matrix */}
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-              <Building2 className="w-5 h-5 text-stone-300" />
+            <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+              <Building2 className="w-5 h-5 text-stone-300 shrink-0" />
               <span>טביעת אצבע מו"לית (Publishing House Specialization)</span>
             </h3>
             <p className="text-xs text-stone-400 mt-1 mb-6">
               התפלגות 8 ההוצאות המובילות בארכיון בחלוקה בין פרוזה לעיון ומדע
             </p>
 
-            <div className="h-72 w-full">
+            <div className="h-72 sm:h-80 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={publisherFingerprintData}
                   layout="vertical"
-                  margin={{ top: 10, right: 30, left: 20, bottom: 25 }}
+                  margin={isMobile ? { top: 10, right: 15, left: 5, bottom: 20 } : { top: 10, right: 30, left: 20, bottom: 25 }}
                 >
-                  <XAxis type="number" stroke="#78716c" tick={{ fontSize: 11, fill: '#a8a29e' }} />
-                  {/* Wide 165px width prevents any text collision */}
+                  <XAxis type="number" stroke="#78716c" tick={{ fontSize: isMobile ? 10 : 11, fill: '#a8a29e' }} />
                   <YAxis
                     type="category"
                     dataKey="publisher"
                     stroke="#78716c"
-                    width={165}
-                    tick={{ fontSize: 12, fill: '#d6d3d1', textAnchor: 'start' }}
-                    tickFormatter={val => (val.length > 20 ? `${val.substring(0, 19)}…` : val)}
+                    width={isMobile ? 105 : 165}
+                    tick={{ fontSize: isMobile ? 10 : 12, fill: '#d6d3d1', textAnchor: 'start' }}
+                    tickFormatter={val => (val.length > (isMobile ? 12 : 20) ? `${val.substring(0, isMobile ? 11 : 19)}…` : val)}
                   />
                   <Tooltip
                     contentStyle={{
@@ -692,7 +705,7 @@ export default function ArchiveAnalyticsAtlas() {
                     }}
                     formatter={(val, name) => [val, name === 'prose' ? 'פרוזה' : 'עיון']}
                   />
-                  <Legend wrapperStyle={{ paddingTop: '15px' }} formatter={val => (val === 'prose' ? 'פרוזה' : 'עיון ומדע')} />
+                  <Legend wrapperStyle={{ paddingTop: '15px', fontSize: isMobile ? '11px' : '12px' }} formatter={val => (val === 'prose' ? 'פרוזה' : 'עיון ומדע')} />
                   <Bar dataKey="prose" stackId="a" fill="#ea580c" name="prose" radius={[0, 0, 0, 0]} />
                   <Bar dataKey="nonFiction" stackId="a" fill="#0f766e" name="nonFiction" radius={[0, 4, 4, 0]} />
                 </BarChart>
@@ -704,34 +717,34 @@ export default function ArchiveAnalyticsAtlas() {
       </div>
 
       {/* Row 4: Page Volume by Genre & Language Streams */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         
         {/* Chart 6: Page Volume by Genre */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-              <Flame className="w-5 h-5 text-amber-500" />
+            <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+              <Flame className="w-5 h-5 text-amber-500 shrink-0" />
               <span>נפח עמודים לפי ז'אנר (Actual Pages Digest by Genre)</span>
             </h3>
             <p className="text-xs text-stone-400 mt-1 mb-6">
               כמה עמודים בפועל נקראו בכל ז'אנר (מדד השקעת הזמן והקשב האמיתי)
             </p>
 
-            <div className="h-72 w-full">
+            <div className="h-72 sm:h-80 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={genrePagesData}
                   layout="vertical"
-                  margin={{ top: 10, right: 30, left: 20, bottom: 25 }}
+                  margin={isMobile ? { top: 10, right: 15, left: 5, bottom: 20 } : { top: 10, right: 30, left: 20, bottom: 25 }}
                 >
-                  <XAxis type="number" stroke="#78716c" tick={{ fontSize: 11, fill: '#a8a29e' }} />
+                  <XAxis type="number" stroke="#78716c" tick={{ fontSize: isMobile ? 10 : 11, fill: '#a8a29e' }} />
                   <YAxis
                     type="category"
                     dataKey="genre"
                     stroke="#78716c"
-                    width={165}
-                    tick={{ fontSize: 12, fill: '#d6d3d1', textAnchor: 'start' }}
-                    tickFormatter={val => (val.length > 20 ? `${val.substring(0, 19)}…` : val)}
+                    width={isMobile ? 105 : 165}
+                    tick={{ fontSize: isMobile ? 10 : 12, fill: '#d6d3d1', textAnchor: 'start' }}
+                    tickFormatter={val => (val.length > (isMobile ? 12 : 20) ? `${val.substring(0, isMobile ? 11 : 19)}…` : val)}
                   />
                   <Tooltip
                     contentStyle={{
@@ -751,10 +764,10 @@ export default function ArchiveAnalyticsAtlas() {
         </div>
 
         {/* Chart 7: Linguistic Streams & Translation Donut */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-              <Globe2 className="w-5 h-5 text-teal-400" />
+            <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+              <Globe2 className="w-5 h-5 text-teal-400 shrink-0" />
               <span>נוף שפות מקור ותרגום (Linguistic Streams)</span>
             </h3>
             <p className="text-xs text-stone-400 mt-1 mb-4">
@@ -768,8 +781,8 @@ export default function ArchiveAnalyticsAtlas() {
                     data={translationData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={60}
-                    outerRadius={90}
+                    innerRadius={isMobile ? 45 : 60}
+                    outerRadius={isMobile ? 70 : 90}
                     paddingAngle={4}
                     dataKey="value"
                   >
@@ -791,12 +804,12 @@ export default function ArchiveAnalyticsAtlas() {
               </ResponsiveContainer>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-4 border-t border-stone-800 text-xs">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 pt-4 border-t border-stone-800 text-xs">
               {translationData.map(item => (
-                <div key={item.name} className="flex items-center gap-2">
+                <div key={item.name} className="flex items-center gap-1.5 sm:gap-2">
                   <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
-                  <span className="text-stone-300 font-medium truncate">{item.name}:</span>
-                  <span className="font-mono font-bold text-stone-100">{item.value}</span>
+                  <span className="text-stone-300 font-medium truncate text-[11px] sm:text-xs">{item.name}:</span>
+                  <span className="font-mono font-bold text-stone-100 text-[11px] sm:text-xs">{item.value}</span>
                 </div>
               ))}
             </div>
@@ -806,12 +819,12 @@ export default function ArchiveAnalyticsAtlas() {
       </div>
 
       {/* Row 5: Chronological Vintage Wave & Series Dynamics */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         
         {/* Chart 8: Chronological Vintage Timeline */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl">
-          <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-            <Clock className="w-5 h-5 text-amber-500" />
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl">
+          <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+            <Clock className="w-5 h-5 text-amber-500 shrink-0" />
             <span>ציר תקופות כתיבה היסטוריות (Chronological Horizon)</span>
           </h3>
           <p className="text-xs text-stone-400 mt-1 mb-6">
@@ -840,10 +853,10 @@ export default function ArchiveAnalyticsAtlas() {
         </div>
 
         {/* Chart 9: Series Sagas vs Standalones */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-              <Layers className="w-5 h-5 text-amber-500" />
+            <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+              <Layers className="w-5 h-5 text-amber-500 shrink-0" />
               <span>דינמיקת סדרות רב-כרכיות (Series Sagas vs Standalones)</span>
             </h3>
             <p className="text-xs text-stone-400 mt-1 mb-4">
@@ -855,9 +868,9 @@ export default function ArchiveAnalyticsAtlas() {
                 <RadialBarChart
                   cx="50%"
                   cy="50%"
-                  innerRadius="30%"
-                  outerRadius="90%"
-                  barSize={18}
+                  innerRadius={isMobile ? "22%" : "30%"}
+                  outerRadius={isMobile ? "85%" : "90%"}
+                  barSize={isMobile ? 14 : 18}
                   data={seriesDynamicsData}
                   startAngle={180}
                   endAngle={0}
@@ -871,7 +884,7 @@ export default function ArchiveAnalyticsAtlas() {
                   />
                   <Legend
                     iconSize={10}
-                    wrapperStyle={{ paddingTop: '20px' }}
+                    wrapperStyle={{ paddingTop: '20px', fontSize: isMobile ? '11px' : '12px' }}
                     formatter={val => (val === 'count' ? 'כמות כרכים' : val)}
                   />
                   <Tooltip
@@ -903,13 +916,13 @@ export default function ArchiveAnalyticsAtlas() {
       </div>
 
       {/* Row 6: Series Deconstruction Spotlight & Milestones Dossier */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         
         {/* Infographic 10: Deconstructed Series Dossier */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-amber-500" />
+            <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-amber-500 shrink-0" />
               <span>פירוק סדרות לכרכים עצמאיים (Deconstructed Sagas)</span>
             </h3>
             <p className="text-xs text-stone-400 mt-1 mb-6">
@@ -918,7 +931,7 @@ export default function ArchiveAnalyticsAtlas() {
 
             <div className="space-y-4">
               {deconstructedSagas.map(saga => (
-                <div key={saga.seriesName} className="p-4 rounded-2xl bg-[#161a27] border border-stone-800">
+                <div key={saga.seriesName} className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#161a27] border border-stone-800">
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-serif font-bold text-sm text-amber-300">{saga.seriesName}</span>
                     <span className="font-mono text-xs text-stone-400">{saga.volumeCount} כרכים • {saga.totalPages.toLocaleString()} עמ'</span>
@@ -942,10 +955,10 @@ export default function ArchiveAnalyticsAtlas() {
         </div>
 
         {/* Infographic 11: Personal Canon Milestones Dossier */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-              <Award className="w-5 h-5 text-teal-400" />
+            <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+              <Award className="w-5 h-5 text-teal-400 shrink-0" />
               <span>שיאי הארכיון וציוני דרך (Canon Milestones)</span>
             </h3>
             <p className="text-xs text-stone-400 mt-1 mb-6">
@@ -957,7 +970,7 @@ export default function ArchiveAnalyticsAtlas() {
               {longestTome && (
                 <div
                   onClick={() => setSelectedArchiveBook(longestTome)}
-                  className="p-3.5 rounded-2xl bg-[#161a27] border border-stone-800 hover:border-amber-500/50 cursor-pointer transition flex items-center justify-between group"
+                  className="p-3.5 rounded-xl sm:rounded-2xl bg-[#161a27] border border-stone-800 hover:border-amber-500/50 cursor-pointer transition flex items-center justify-between group"
                 >
                   <div>
                     <div className="text-[11px] font-mono text-amber-400">🏆 הכרך העבה ביותר בארכיון</div>
@@ -973,7 +986,7 @@ export default function ArchiveAnalyticsAtlas() {
               {shortestGem && (
                 <div
                   onClick={() => setSelectedArchiveBook(shortestGem)}
-                  className="p-3.5 rounded-2xl bg-[#161a27] border border-stone-800 hover:border-teal-500/50 cursor-pointer transition flex items-center justify-between group"
+                  className="p-3.5 rounded-xl sm:rounded-2xl bg-[#161a27] border border-stone-800 hover:border-teal-500/50 cursor-pointer transition flex items-center justify-between group"
                 >
                   <div>
                     <div className="text-[11px] font-mono text-teal-400">⚡ הנובלה הממוקדת ביותר</div>
@@ -989,7 +1002,7 @@ export default function ArchiveAnalyticsAtlas() {
               {oldestClassic && (
                 <div
                   onClick={() => setSelectedArchiveBook(oldestClassic)}
-                  className="p-3.5 rounded-2xl bg-[#161a27] border border-stone-800 hover:border-indigo-500/50 cursor-pointer transition flex items-center justify-between group"
+                  className="p-3.5 rounded-xl sm:rounded-2xl bg-[#161a27] border border-stone-800 hover:border-indigo-500/50 cursor-pointer transition flex items-center justify-between group"
                 >
                   <div>
                     <div className="text-[11px] font-mono text-indigo-400">🏛️ היצירה הוותיקה ביותר כרונולוגית</div>
@@ -1013,12 +1026,12 @@ export default function ArchiveAnalyticsAtlas() {
       </div>
 
       {/* Row 7: Format Breakdown & Thematic Tag Cloud */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         
         {/* Chart 12: Format Breakdown */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl">
-          <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-            <BookMarked className="w-5 h-5 text-teal-400" />
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl">
+          <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+            <BookMarked className="w-5 h-5 text-teal-400 shrink-0" />
             <span>פורמט ומדיום קריאה (Medium Breakdown)</span>
           </h3>
           <p className="text-xs text-stone-400 mt-1 mb-6">
@@ -1042,20 +1055,20 @@ export default function ArchiveAnalyticsAtlas() {
         </div>
 
         {/* Infographic 13: Intellectual Thematic Tags Cloud */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl">
-          <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-            <Tags className="w-5 h-5 text-amber-500" />
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl">
+          <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+            <Tags className="w-5 h-5 text-amber-500 shrink-0" />
             <span>תמות ורעיונות אינטלקטואליים מובילים (Thematic Vectors)</span>
           </h3>
           <p className="text-xs text-stone-400 mt-1 mb-6">
             הרעיונות והנושאים החוזרים לאורך קריאתך
           </p>
 
-          <div className="flex flex-wrap gap-2.5">
+          <div className="flex flex-wrap gap-2 sm:gap-2.5">
             {topThemes.map((item) => (
               <div
                 key={item.theme}
-                className="px-3.5 py-2 rounded-xl bg-[#161a27] border border-stone-800 hover:border-amber-500/60 transition flex items-center gap-2"
+                className="px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-[#161a27] border border-stone-800 hover:border-amber-500/60 transition flex items-center gap-2"
               >
                 <span className="text-xs font-semibold text-stone-200">
                   {item.theme}

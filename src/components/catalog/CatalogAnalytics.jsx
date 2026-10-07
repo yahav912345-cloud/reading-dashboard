@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useBooks } from '../../context/BookContext';
 import {
   ResponsiveContainer,
@@ -45,6 +45,14 @@ import {
 export default function CatalogAnalytics() {
   const { wishlistCatalog, setSelectedCatalogBook } = useBooks();
   const { uniqueBooks, lists } = wishlistCatalog;
+
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 640);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // 1. Executive Top Aggregates
   const stats = useMemo(() => {
@@ -293,7 +301,7 @@ export default function CatalogAnalytics() {
               <Sparkles className="w-3.5 h-3.5 text-teal-400" />
               <span>CATALOG INTELLIGENCE & INFOGRAPHICS • מודיעין רשימות סימניה</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-serif font-black tracking-tight text-stone-100">
+            <h2 className="text-2xl sm:text-4xl font-serif font-black tracking-tight text-stone-100">
               אטלס ניתוח קטלוג הרשימות
             </h2>
             <p className="text-xs sm:text-sm text-stone-400 mt-1 max-w-2xl font-light">
@@ -303,58 +311,58 @@ export default function CatalogAnalytics() {
         </div>
 
         {/* Executive 4-Dial Metric Ribbon */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           
-          <div className="p-5 rounded-2xl bg-[#11161d] border border-stone-800/80 shadow-md flex flex-col justify-between relative overflow-hidden">
+          <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-[#11161d] border border-stone-800/80 shadow-md flex flex-col justify-between relative overflow-hidden">
             <div className="flex items-center justify-between text-stone-400">
-              <span className="text-xs font-mono uppercase tracking-wider">ספרים ייחודיים</span>
-              <BookOpen className="w-4 h-4 text-teal-400" />
+              <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider">ספרים ייחודיים</span>
+              <BookOpen className="w-4 h-4 text-teal-400 shrink-0" />
             </div>
-            <div className="mt-4">
-              <div className="text-3xl sm:text-4xl font-serif font-black text-stone-100">{stats.totalUnique}</div>
-              <div className="text-[11px] text-teal-400 font-mono mt-1">
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-4xl font-serif font-black text-stone-100">{stats.totalUnique}</div>
+              <div className="text-[10px] sm:text-[11px] text-teal-400 font-mono mt-1">
                 פרוסים על פני 40 רשימות
               </div>
             </div>
             <div className="absolute -left-3 -bottom-3 w-16 h-16 bg-teal-500/5 rounded-full pointer-events-none" />
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#11161d] border border-stone-800/80 shadow-md flex flex-col justify-between relative overflow-hidden">
+          <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-[#11161d] border border-stone-800/80 shadow-md flex flex-col justify-between relative overflow-hidden">
             <div className="flex items-center justify-between text-stone-400">
-              <span className="text-xs font-mono uppercase tracking-wider">ציון קונצנזוס ממוצע</span>
-              <Star className="w-4 h-4 text-amber-400" />
+              <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider">ציון קונצנזוס ממוצע</span>
+              <Star className="w-4 h-4 text-amber-400 shrink-0" />
             </div>
-            <div className="mt-4">
-              <div className="text-3xl sm:text-4xl font-serif font-black text-stone-100">{stats.avgRating} <span className="text-lg font-light text-stone-400">⭐</span></div>
-              <div className="text-[11px] text-amber-400 font-mono mt-1">
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-4xl font-serif font-black text-stone-100">{stats.avgRating} <span className="text-base sm:text-lg font-light text-stone-400">⭐</span></div>
+              <div className="text-[10px] sm:text-[11px] text-amber-400 font-mono mt-1">
                 {stats.highAcclaimCount} ספרים בדירוג 4.30 ומעלה
               </div>
             </div>
             <div className="absolute -left-3 -bottom-3 w-16 h-16 bg-amber-500/5 rounded-full pointer-events-none" />
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#11161d] border border-stone-800/80 shadow-md flex flex-col justify-between relative overflow-hidden">
+          <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-[#11161d] border border-stone-800/80 shadow-md flex flex-col justify-between relative overflow-hidden">
             <div className="flex items-center justify-between text-stone-400">
-              <span className="text-xs font-mono uppercase tracking-wider">מאגר עמודים משוער</span>
-              <FileText className="w-4 h-4 text-indigo-400" />
+              <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider">מאגר עמודים משוער</span>
+              <FileText className="w-4 h-4 text-indigo-400 shrink-0" />
             </div>
-            <div className="mt-4">
-              <div className="text-3xl sm:text-4xl font-serif font-black text-stone-100">~{stats.estimatedTotalPages.toLocaleString()}</div>
-              <div className="text-[11px] text-indigo-400 font-mono mt-1">
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-4xl font-serif font-black text-stone-100">~{stats.estimatedTotalPages.toLocaleString()}</div>
+              <div className="text-[10px] sm:text-[11px] text-indigo-400 font-mono mt-1">
                 כ-1,300 שעות קריאה ממתינות
               </div>
             </div>
             <div className="absolute -left-3 -bottom-3 w-16 h-16 bg-indigo-500/5 rounded-full pointer-events-none" />
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#11161d] border border-stone-800/80 shadow-md flex flex-col justify-between relative overflow-hidden">
+          <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-[#11161d] border border-stone-800/80 shadow-md flex flex-col justify-between relative overflow-hidden">
             <div className="flex items-center justify-between text-stone-400">
-              <span className="text-xs font-mono uppercase tracking-wider">מגזר איכות</span>
-              <Award className="w-4 h-4 text-emerald-400" />
+              <span className="text-[11px] sm:text-xs font-mono uppercase tracking-wider">מגזר איכות</span>
+              <Award className="w-4 h-4 text-emerald-400 shrink-0" />
             </div>
-            <div className="mt-4">
-              <div className="text-3xl sm:text-4xl font-serif font-black text-stone-100">82%</div>
-              <div className="text-[11px] text-emerald-400 font-mono mt-1">
+            <div className="mt-3 sm:mt-4">
+              <div className="text-2xl sm:text-4xl font-serif font-black text-stone-100">82%</div>
+              <div className="text-[10px] sm:text-[11px] text-emerald-400 font-mono mt-1">
                 בציון קהילה 4.0 ומעלה
               </div>
             </div>
@@ -366,11 +374,11 @@ export default function CatalogAnalytics() {
       </div>
 
       {/* Row 1: The Masterpiece Quadrant Scatter Plot (Critical Acclaim vs. Community Volume) */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl">
+      <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
           <div>
-            <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-teal-400" />
+            <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-teal-400 shrink-0" />
               <span>מטריצת קונצנזוס מול תפוצה (Critical Acclaim vs. Popularity Quadrants)</span>
             </h3>
             <p className="text-xs text-stone-400 mt-0.5">
@@ -392,16 +400,16 @@ export default function CatalogAnalytics() {
           </div>
         </div>
 
-        <div className="h-96 w-full">
+        <div className="h-80 sm:h-96 w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 30, left: 10, bottom: 25 }}>
+            <ScatterChart margin={isMobile ? { top: 15, right: 15, left: -15, bottom: 20 } : { top: 20, right: 30, left: 10, bottom: 25 }}>
               <XAxis
                 type="number"
                 dataKey="x"
                 name="דירוג קהילה"
                 domain={[3.6, 4.8]}
                 stroke="#78716c"
-                tick={{ fontSize: 12, fill: '#a8a29e' }}
+                tick={{ fontSize: isMobile ? 10 : 12, fill: '#a8a29e' }}
                 unit=" ⭐"
               />
               <YAxis
@@ -409,7 +417,7 @@ export default function CatalogAnalytics() {
                 dataKey="y"
                 name="כמות מדרגים"
                 stroke="#78716c"
-                tick={{ fontSize: 12, fill: '#a8a29e' }}
+                tick={{ fontSize: isMobile ? 10 : 12, fill: '#a8a29e' }}
                 unit=" קוראים"
               />
               <ZAxis type="number" dataKey="z" range={[50, 420]} name="עמודים" />
@@ -464,30 +472,33 @@ export default function CatalogAnalytics() {
       </div>
 
       {/* Row 2: Acclaim Bell Curve & Thematic Radar */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         
         {/* Chart 2: Acclaim Bell Curve */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-              <Flame className="w-5 h-5 text-amber-500" />
+            <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+              <Flame className="w-5 h-5 text-amber-500 shrink-0" />
               <span>עקומת צפיפות הציונים (Acclaim Density Bell Curve)</span>
             </h3>
             <p className="text-xs text-stone-400 mt-1 mb-6">
               התפלגות שכיחות הציונים של הספרים ברשימות — שיא השכיחות מתרכז סביב 4.2–4.4
             </p>
 
-            <div className="h-72 w-full">
+            <div className="h-64 sm:h-72 w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={acclaimDensityData} margin={{ top: 15, right: 25, left: 10, bottom: 25 }}>
+                <AreaChart
+                  data={acclaimDensityData}
+                  margin={isMobile ? { top: 15, right: 15, left: -10, bottom: 20 } : { top: 15, right: 25, left: 10, bottom: 25 }}
+                >
                   <defs>
                     <linearGradient id="acclaimGrad" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#14b8a6" stopOpacity={0.65} />
                       <stop offset="95%" stopColor="#14b8a6" stopOpacity={0.0} />
                     </linearGradient>
                   </defs>
-                  <XAxis dataKey="range" stroke="#78716c" tick={{ fontSize: 11, fill: '#a8a29e' }} dy={8} />
-                  <YAxis stroke="#78716c" tick={{ fontSize: 11, fill: '#a8a29e' }} />
+                  <XAxis dataKey="range" stroke="#78716c" tick={{ fontSize: isMobile ? 10 : 11, fill: '#a8a29e' }} dy={8} />
+                  <YAxis stroke="#78716c" tick={{ fontSize: isMobile ? 10 : 11, fill: '#a8a29e' }} />
                   <Tooltip
                     contentStyle={{
                       backgroundColor: '#0c0f17',
@@ -517,21 +528,21 @@ export default function CatalogAnalytics() {
         </div>
 
         {/* Chart 3: Wishlist Thematic Radar */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-              <Compass className="w-5 h-5 text-teal-400" />
+            <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+              <Compass className="w-5 h-5 text-teal-400 shrink-0" />
               <span>רדאר תמות הקטלוג (Wishlist Thematic Radar)</span>
             </h3>
             <p className="text-xs text-stone-400 mt-1 mb-2">
               6 צירי תוכן מרכזיים המרכיבים את 40 רשימות הקריאה
             </p>
 
-            <div className="h-72 w-full flex items-center justify-center">
+            <div className="h-64 sm:h-72 w-full flex items-center justify-center">
               <ResponsiveContainer width="100%" height="100%">
-                <RadarChart data={thematicRadarData} outerRadius={90}>
+                <RadarChart data={thematicRadarData} outerRadius={isMobile ? 65 : 90}>
                   <PolarGrid stroke="#2e3549" />
-                  <PolarAngleAxis dataKey="subject" stroke="#a8a29e" tick={{ fontSize: 11, fill: '#d6d3d1' }} />
+                  <PolarAngleAxis dataKey="subject" stroke="#a8a29e" tick={{ fontSize: isMobile ? 9 : 11, fill: '#d6d3d1' }} />
                   <PolarRadiusAxis stroke="#44403c" angle={30} domain={[0, 80]} />
                   <Radar
                     name="נפח ברשימות"
@@ -562,35 +573,35 @@ export default function CatalogAnalytics() {
       </div>
 
       {/* Row 3: Publisher Prestige Matrix & Simania Lists Saturation */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         
         {/* Chart 4: Publisher Prestige & Inventory Matrix */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-              <Building className="w-5 h-5 text-teal-400" />
+            <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+              <Building className="w-5 h-5 text-teal-400 shrink-0" />
               <span>יוקרת הוצאות לאור ומלאי (Publisher Prestige Matrix)</span>
             </h3>
             <p className="text-xs text-stone-400 mt-1 mb-6">
               כמות הספרים שמספקת כל הוצאה מול הציון הממוצע של כותריה בקטלוג
             </p>
 
-            <div className="h-72 w-full">
+            <div className="h-72 sm:h-80 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={publisherMatrixData}
                   layout="vertical"
-                  margin={{ top: 10, right: 30, left: 20, bottom: 25 }}
+                  margin={isMobile ? { top: 10, right: 15, left: 5, bottom: 20 } : { top: 10, right: 30, left: 20, bottom: 25 }}
                 >
-                  <XAxis type="number" stroke="#78716c" tick={{ fontSize: 11, fill: '#a8a29e' }} />
-                  {/* Wide 165px width prevents any text collision */}
+                  <XAxis type="number" stroke="#78716c" tick={{ fontSize: isMobile ? 10 : 11, fill: '#a8a29e' }} />
+                  {/* Wide responsive width prevents any text collision */}
                   <YAxis
                     type="category"
                     dataKey="name"
                     stroke="#78716c"
-                    width={165}
-                    tick={{ fontSize: 12, fill: '#d6d3d1', textAnchor: 'start' }}
-                    tickFormatter={val => (val.length > 20 ? `${val.substring(0, 19)}…` : val)}
+                    width={isMobile ? 105 : 165}
+                    tick={{ fontSize: isMobile ? 10 : 12, fill: '#d6d3d1', textAnchor: 'start' }}
+                    tickFormatter={val => (val.length > (isMobile ? 12 : 20) ? `${val.substring(0, isMobile ? 11 : 19)}…` : val)}
                   />
                   <Tooltip
                     contentStyle={{
@@ -613,32 +624,32 @@ export default function CatalogAnalytics() {
         </div>
 
         {/* Chart 5: Thematic Saturation: Top Lists */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-              <Layers className="w-5 h-5 text-amber-500" />
+            <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+              <Layers className="w-5 h-5 text-amber-500 shrink-0" />
               <span>הצטברות לפי רשימות סימניה (Thematic Saturation)</span>
             </h3>
             <p className="text-xs text-stone-400 mt-1 mb-6">
               8 הרשימות המרכזיות שבהן מתרכז רוב המאגר הממתין
             </p>
 
-            <div className="h-72 w-full">
+            <div className="h-72 sm:h-80 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={listsSaturationData}
                   layout="vertical"
-                  margin={{ top: 10, right: 30, left: 20, bottom: 25 }}
+                  margin={isMobile ? { top: 10, right: 15, left: 5, bottom: 20 } : { top: 10, right: 30, left: 20, bottom: 25 }}
                 >
-                  <XAxis type="number" stroke="#78716c" tick={{ fontSize: 11, fill: '#a8a29e' }} />
-                  {/* Wide 165px width prevents any text collision */}
+                  <XAxis type="number" stroke="#78716c" tick={{ fontSize: isMobile ? 10 : 11, fill: '#a8a29e' }} />
+                  {/* Wide responsive width prevents any text collision */}
                   <YAxis
                     type="category"
                     dataKey="name"
                     stroke="#78716c"
-                    width={165}
-                    tick={{ fontSize: 12, fill: '#d6d3d1', textAnchor: 'start' }}
-                    tickFormatter={val => (val.length > 20 ? `${val.substring(0, 19)}…` : val)}
+                    width={isMobile ? 105 : 165}
+                    tick={{ fontSize: isMobile ? 10 : 12, fill: '#d6d3d1', textAnchor: 'start' }}
+                    tickFormatter={val => (val.length > (isMobile ? 12 : 20) ? `${val.substring(0, isMobile ? 11 : 19)}…` : val)}
                   />
                   <Tooltip
                     contentStyle={{
@@ -663,23 +674,26 @@ export default function CatalogAnalytics() {
       </div>
 
       {/* Row 4: Reading Depth Spectrum & Publication Decades Vintage */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         
         {/* Chart 6: Backlog Reading Effort / Page Depth Spectrum */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl">
-          <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-            <FileText className="w-5 h-5 text-indigo-400" />
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl">
+          <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+            <FileText className="w-5 h-5 text-indigo-400 shrink-0" />
             <span>ספקטרום עובי ועומק קריאה (Page Depth Spectrum)</span>
           </h3>
           <p className="text-xs text-stone-400 mt-1 mb-6">
             פילוח היצירות לפי רמת מחויבות הזמן הנדרשת: מקריאה מהירה ועד אפוסים כבדים
           </p>
 
-          <div className="h-64 w-full">
+          <div className="h-64 sm:h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={pageDepthSpectrumData} margin={{ top: 15, right: 20, left: 10, bottom: 25 }}>
-                <XAxis dataKey="tier" stroke="#78716c" tick={{ fontSize: 11, fill: '#a8a29e' }} dy={8} />
-                <YAxis stroke="#78716c" tick={{ fontSize: 11, fill: '#a8a29e' }} />
+              <BarChart
+                data={pageDepthSpectrumData}
+                margin={isMobile ? { top: 15, right: 15, left: -10, bottom: 20 } : { top: 15, right: 20, left: 10, bottom: 25 }}
+              >
+                <XAxis dataKey="tier" stroke="#78716c" tick={{ fontSize: isMobile ? 9 : 11, fill: '#a8a29e' }} dy={8} />
+                <YAxis stroke="#78716c" tick={{ fontSize: isMobile ? 10 : 11, fill: '#a8a29e' }} />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: '#0c0f17',
@@ -704,20 +718,23 @@ export default function CatalogAnalytics() {
         </div>
 
         {/* Chart 7: Publication Decades Timeline */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl">
-          <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-            <Calendar className="w-5 h-5 text-teal-400" />
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl">
+          <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+            <Calendar className="w-5 h-5 text-teal-400 shrink-0" />
             <span>שנות הוצאה לאור בקטלוג (Publication Vintage)</span>
           </h3>
           <p className="text-xs text-stone-400 mt-1 mb-6">
             מתי פורסמו הספרים שברשימותיך — קלאסיקות ותיקות מול ספרות עכשווית
           </p>
 
-          <div className="h-64 w-full">
+          <div className="h-64 sm:h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={publicationDecadesData} margin={{ top: 15, right: 20, left: 10, bottom: 25 }}>
-                <XAxis dataKey="era" stroke="#78716c" tick={{ fontSize: 11, fill: '#a8a29e' }} dy={8} />
-                <YAxis stroke="#78716c" tick={{ fontSize: 11, fill: '#a8a29e' }} />
+              <BarChart
+                data={publicationDecadesData}
+                margin={isMobile ? { top: 15, right: 15, left: -10, bottom: 20 } : { top: 15, right: 20, left: 10, bottom: 25 }}
+              >
+                <XAxis dataKey="era" stroke="#78716c" tick={{ fontSize: isMobile ? 10 : 11, fill: '#a8a29e' }} dy={8} />
+                <YAxis stroke="#78716c" tick={{ fontSize: isMobile ? 10 : 11, fill: '#a8a29e' }} />
                 <Tooltip
                   contentStyle={{
                     backgroundColor: '#0c0f17',
@@ -737,13 +754,13 @@ export default function CatalogAnalytics() {
       </div>
 
       {/* Row 5: Acclaim Brackets Donut & Curated Extremes Dossier */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
         
         {/* Chart 8: Acclaim Brackets Donut */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
+        <div className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-              <Star className="w-5 h-5 text-amber-500" />
+            <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+              <Star className="w-5 h-5 text-amber-500 shrink-0" />
               <span>פילוח איכותני (Rating Tiers)</span>
             </h3>
             <p className="text-xs text-stone-400 mt-1 mb-4">
@@ -757,8 +774,8 @@ export default function CatalogAnalytics() {
                     data={ratingsDistributionData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={55}
-                    outerRadius={80}
+                    innerRadius={isMobile ? 45 : 55}
+                    outerRadius={isMobile ? 70 : 80}
                     paddingAngle={4}
                     dataKey="value"
                   >
@@ -795,23 +812,23 @@ export default function CatalogAnalytics() {
         </div>
 
         {/* Infographic Dossier: Notable Extremes & Fast Highlights (2 Columns) */}
-        <div className="lg:col-span-2 p-6 sm:p-8 rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
+        <div className="lg:col-span-2 p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#11141e] border border-stone-800 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-              <Award className="w-5 h-5 text-teal-400" />
+            <h3 className="text-base sm:text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
+              <Award className="w-5 h-5 text-teal-400 shrink-0" />
               <span>תיק נקודות ציון ושיאי קטלוג (Notable Extremes & Highlights)</span>
             </h3>
             <p className="text-xs text-stone-400 mt-1 mb-6">
               חמש נקודות עניין בולטות המזנקות מתוך נתוני הרשימות
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
               
               {/* Highlight 1: Highest rated */}
               {stats.highestRated && (
                 <div
                   onClick={() => setSelectedCatalogBook(stats.highestRated)}
-                  className="p-4 rounded-2xl bg-[#161b26] border border-stone-800 hover:border-amber-500/50 transition cursor-pointer group"
+                  className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#161b26] border border-stone-800 hover:border-amber-500/50 transition cursor-pointer group"
                 >
                   <div className="flex items-center justify-between text-xs text-amber-400 font-mono mb-2">
                     <span>🌟 הציון הגבוה ביותר בקטלוג</span>
@@ -834,7 +851,7 @@ export default function CatalogAnalytics() {
               {stats.thickestTome && (
                 <div
                   onClick={() => setSelectedCatalogBook(stats.thickestTome)}
-                  className="p-4 rounded-2xl bg-[#161b26] border border-stone-800 hover:border-teal-500/50 transition cursor-pointer group"
+                  className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#161b26] border border-stone-800 hover:border-teal-500/50 transition cursor-pointer group"
                 >
                   <div className="flex items-center justify-between text-xs text-teal-400 font-mono mb-2">
                     <span>📖 הכרך העבה ביותר ברשימות</span>
@@ -857,7 +874,7 @@ export default function CatalogAnalytics() {
               {stats.mostReviewed && (
                 <div
                   onClick={() => setSelectedCatalogBook(stats.mostReviewed)}
-                  className="p-4 rounded-2xl bg-[#161b26] border border-stone-800 hover:border-indigo-500/50 transition cursor-pointer group"
+                  className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#161b26] border border-stone-800 hover:border-indigo-500/50 transition cursor-pointer group"
                 >
                   <div className="flex items-center justify-between text-xs text-indigo-400 font-mono mb-2">
                     <span>👥 המוכר והנקרא ביותר בקהילה</span>
@@ -880,7 +897,7 @@ export default function CatalogAnalytics() {
               {stats.shortestGem && (
                 <div
                   onClick={() => setSelectedCatalogBook(stats.shortestGem)}
-                  className="p-4 rounded-2xl bg-[#161b26] border border-stone-800 hover:border-emerald-500/50 transition cursor-pointer group"
+                  className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#161b26] border border-stone-800 hover:border-emerald-500/50 transition cursor-pointer group"
                 >
                   <div className="flex items-center justify-between text-xs text-emerald-400 font-mono mb-2">
                     <span>⚡ הנובלה המהירה ביותר</span>

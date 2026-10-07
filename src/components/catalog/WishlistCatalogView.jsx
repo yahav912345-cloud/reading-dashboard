@@ -118,41 +118,44 @@ export default function WishlistCatalogView() {
         </div>
 
         {/* View Switcher - Intelligence / Charts is default and first */}
-        <div className="flex items-center p-1 rounded-xl bg-stone-100 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 self-start sm:self-auto">
+        <div className="flex items-center p-1 rounded-xl bg-stone-100 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 w-full sm:w-auto justify-between sm:justify-start">
           <button
             onClick={() => setSubTab('intelligence')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+            className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
               subTab === 'intelligence'
                 ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-xs font-bold'
                 : 'text-stone-500 hover:text-stone-900 dark:hover:text-stone-200'
             }`}
           >
-            <BarChart2 className="w-3.5 h-3.5 text-teal-700 dark:text-teal-500" />
-            <span>ניתוח הקטלוג וגרפים</span>
+            <BarChart2 className="w-3.5 h-3.5 text-teal-700 dark:text-teal-500 shrink-0" />
+            <span className="hidden sm:inline">ניתוח הקטלוג וגרפים</span>
+            <span className="sm:hidden">גרפים</span>
           </button>
 
           <button
             onClick={() => setSubTab('stacks')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+            className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
               subTab === 'stacks'
                 ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-xs font-bold'
                 : 'text-stone-500 hover:text-stone-900 dark:hover:text-stone-200'
             }`}
           >
-            <Layers className="w-3.5 h-3.5" />
-            <span>מדפי הרשימות</span>
+            <Layers className="w-3.5 h-3.5 shrink-0" />
+            <span className="hidden sm:inline">מדפי הרשימות</span>
+            <span className="sm:hidden">מדפים</span>
           </button>
 
           <button
             onClick={() => setSubTab('curator')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+            className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
               subTab === 'curator'
                 ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-xs font-bold'
                 : 'text-stone-500 hover:text-stone-900 dark:hover:text-stone-200'
             }`}
           >
-            <Compass className="w-3.5 h-3.5 text-amber-600" />
-            <span>בורר הספר הבא</span>
+            <Compass className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+            <span className="hidden sm:inline">בורר הספר הבא</span>
+            <span className="sm:hidden">בורר</span>
           </button>
         </div>
       </div>

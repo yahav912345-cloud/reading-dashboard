@@ -117,41 +117,44 @@ export default function ReadingArchiveView() {
         </div>
 
         {/* View Perspective Selector - Charts is default and first */}
-        <div className="flex items-center p-1 rounded-xl bg-stone-100 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 self-start sm:self-auto">
+        <div className="flex items-center p-1 rounded-xl bg-stone-100 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 w-full sm:w-auto justify-between sm:justify-start">
           <button
             onClick={() => setSubTab('analytics')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+            className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
               subTab === 'analytics'
                 ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-xs font-bold'
                 : 'text-stone-500 hover:text-stone-900 dark:hover:text-stone-200'
             }`}
           >
-            <BarChart3 className="w-3.5 h-3.5 text-amber-700 dark:text-amber-500" />
-            <span>אטלס ניתוח קריאה (גרפים)</span>
+            <BarChart3 className="w-3.5 h-3.5 text-amber-700 dark:text-amber-500 shrink-0" />
+            <span className="hidden sm:inline">אטלס ניתוח קריאה (גרפים)</span>
+            <span className="sm:hidden">גרפים</span>
           </button>
 
           <button
             onClick={() => setSubTab('shelf')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+            className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
               subTab === 'shelf'
                 ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-xs font-bold'
                 : 'text-stone-500 hover:text-stone-900 dark:hover:text-stone-200'
             }`}
           >
-            <LayoutGrid className="w-3.5 h-3.5" />
-            <span>מדף הספרים והסדרות</span>
+            <LayoutGrid className="w-3.5 h-3.5 shrink-0" />
+            <span className="hidden sm:inline">מדף הספרים והסדרות</span>
+            <span className="sm:hidden">מדף</span>
           </button>
 
           <button
             onClick={() => setSubTab('ledger')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+            className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
               subTab === 'ledger'
                 ? 'bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-xs font-bold'
                 : 'text-stone-500 hover:text-stone-900 dark:hover:text-stone-200'
             }`}
           >
-            <TableIcon className="w-3.5 h-3.5" />
-            <span>לדג'ר ביבליוגרפי</span>
+            <TableIcon className="w-3.5 h-3.5 shrink-0" />
+            <span className="hidden sm:inline">לדג'ר ביבליוגרפי</span>
+            <span className="sm:hidden">לדג'ר</span>
           </button>
         </div>
 
